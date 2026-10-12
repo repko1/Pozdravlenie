@@ -1,0 +1,41 @@
+html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>https://drive.google.com/drive/my-drive?hl=ru</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; }
+        video { width: 100%; height: 100%; object-fit: contain; }
+        .sound-btn { position: absolute; padding: 15px 25px; background: rgba(255,255,255,0.8); color: #000; border: none; border-radius: 25px; font-family: sans-serif; font-size: 16px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: 0.3s; }
+        .sound-btn:hover { background: #fff; transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+    <!-- Видео обязательно с muted и playsinline для автозапуска -->
+    <video id="myVideo" autoplay muted playsinline controls>
+        <source src="md.mp4" type="md.mp4">
+    </video>
+
+    <!-- Кнопка поверх видео, если пользователь хочет включить звук -->
+    <button class="sound-btn" id="soundBtn" onclick="enableSound()">🔊 Включить звук</button>
+
+    <script>
+        const video = document.getElementById('myVideo');
+        const btn = document.getElementById('soundBtn');
+
+        // Функция включает звук и скрывает кнопку
+        function enableSound() {
+            video.muted = false;
+            btn.style.display = 'none';
+        }
+
+        // Если автозапуск сработал, кнопка висит. Если пользователь кликнет в любое место видео, тоже можно включить звук
+        video.addEventListener('volumechange', () => {
+            if (!video.muted) btn.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
